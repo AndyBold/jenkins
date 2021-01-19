@@ -10,7 +10,12 @@ pipeline {
                     numToKeepStr: '10'
             )
 
-        throttle(['groupA'])
+        throttleJobProperty(
+          categories: ['groupA'],
+          throttleEnabled: true,
+          throttleOption: 'category'
+      )
+
 
     }
 
