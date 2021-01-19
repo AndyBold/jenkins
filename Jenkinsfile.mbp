@@ -24,7 +24,7 @@ pipeline {
 
         stage('Hello World') {
             steps {
-                sh 'echo Hello Jenkins World'
+                sh 'echo Hello Jenkins World it is 16:27'
             }
         }
 
