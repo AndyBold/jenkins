@@ -1,0 +1,63 @@
+// A simple multibranch pipeline.
+// Because I'm lazy, adapted/butchered from the tutorial at https://devopscube.com/jenkins-multibranch-pipeline-tutorial/
+pipeline {
+
+    agent {
+        node {
+            label 'master'
+        }
+    }
+
+    options {
+        buildDiscarder logRotator(
+                    daysToKeepStr: '16',
+                    numToKeepStr: '10'
+            )
+    }
+
+    stages {
+
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                sh """
+                echo "Cleaned Up Workspace For Project"
+                """
+            }
+        }
+
+        stage('Hello World') {
+            steps {
+                sh 'echo Hello Jenkins World'
+            }
+        }
+
+        stage('Waiting...') {
+            steps {
+                sh """
+                sleep 15
+                """
+            }
+        }
+
+        stage('Build Deploy Code') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh """
+                echo "Hello Develop Branch"
+                """
+            }
+        }
+
+        stage('Goodbye') {
+            steps {
+                sh """
+                echo "Goodbye World"
+                """
+            }
+        }
+
+    }
+}
