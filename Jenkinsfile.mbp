@@ -2,11 +2,7 @@
 // Because I'm lazy, adapted/butchered from the tutorial at https://devopscube.com/jenkins-multibranch-pipeline-tutorial/
 pipeline {
 
-    agent {
-        node {
-            label 'master'
-        }
-    }
+    agent any
 
     options {
         buildDiscarder logRotator(
