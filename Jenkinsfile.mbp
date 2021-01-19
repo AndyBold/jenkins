@@ -10,10 +10,15 @@ pipeline {
                     numToKeepStr: '10'
             )
 
+        concurrentBuild('false')
+
         throttleJobProperty(
-          categories: ['groupA'],
-          throttleEnabled: true,
-          throttleOption: 'category'
+            categories: ['groupA'],
+            throttleEnabled: true,
+            throttleOption: 'category',
+            maxConcurrentPerNode: 1,
+            maxConcurrentTotal: 1,
+
       )
 
 
