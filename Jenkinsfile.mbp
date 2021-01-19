@@ -9,6 +9,9 @@ pipeline {
                     daysToKeepStr: '16',
                     numToKeepStr: '10'
             )
+
+        throttle(['groupA'])
+
     }
 
     stages {
@@ -24,7 +27,7 @@ pipeline {
 
         stage('Hello World') {
             steps {
-                sh 'echo Hello Jenkins World it is 16:27'
+                sh 'echo Hello Jenkins World it is 16:52'
             }
         }
 
