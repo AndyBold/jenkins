@@ -10,7 +10,7 @@ pipeline {
                     numToKeepStr: '10'
             )
 
-        concurrentBuild('false')
+        disableConcurrentBuilds('true')
 
         throttleJobProperty(
             categories: ['groupA'],
