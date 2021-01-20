@@ -20,8 +20,14 @@ pipeline {
             maxConcurrentTotal: 1,
 
       )
+    }
 
-
+    triggers {
+        GenericTrigger causeString: 'Generic Cause',
+            regexpFilterExpression: '',
+            regexpFilterText: '',
+            token: 'mbp3',
+            tokenCredentialId: ''
     }
 
     stages {
