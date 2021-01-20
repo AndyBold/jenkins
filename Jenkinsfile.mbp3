@@ -1,4 +1,5 @@
 // A simple multibranch pipeline.
+// Because I'm lazy, adapted/butchered from the tutorial at https://devopscube.com/jenkins-multibranch-pipeline-tutorial/
 pipeline {
 
     agent any
@@ -36,7 +37,7 @@ pipeline {
 
         stage('Hello World') {
             steps {
-                sh 'echo Hello Jenkins World it is 16:52'
+                sh 'echo Hello Jenkins World Pipeline 3'
             }
         }
 
