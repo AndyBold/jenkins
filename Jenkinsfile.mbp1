@@ -25,6 +25,10 @@ pipeline {
         cron('*/2 * * * 1-5')
     }
 
+    parameters {
+        booleanParam defaultValue: true, description: '', name: 'JENKINSTHROTTLE'
+    }
+
     stages {
 
         stage('Cleanup Workspace') {
