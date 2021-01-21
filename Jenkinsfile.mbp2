@@ -16,7 +16,8 @@ pipeline {
             categories: ['groupA'],
             throttleEnabled: true,
             throttleOption: 'category',
-
+            limitOneJobWithMatchingParams: true,
+            paramsToUseForLimit: '',
       )
     }
 
