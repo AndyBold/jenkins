@@ -23,7 +23,7 @@ pipeline {
     }
 
     triggers {
-        cron('*/5 * * * 1-5')
+        cron('*/2 * * * 1-5')
     }
 
     stages {
