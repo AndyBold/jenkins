@@ -12,6 +12,10 @@ pipeline {
 
         disableConcurrentBuilds()
 
+        triggers {
+            cron('*/5 * * * 1-5')
+        }
+
         throttleJobProperty(
             categories: ['groupA'],
             throttleEnabled: true,
