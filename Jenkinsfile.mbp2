@@ -45,7 +45,7 @@ pipeline {
         stage('Waiting...') {
             steps {
                 sh """
-                sleep 15
+                sleep 60
                 """
             }
         }
