@@ -21,14 +21,6 @@ pipeline {
       )
     }
 
-    triggers {
-        GenericTrigger causeString: 'Generic Cause',
-            regexpFilterExpression: '',
-            regexpFilterText: '',
-            token: 'mbp1',
-            tokenCredentialId: ''
-    }
-
     stages {
 
         stage('Cleanup Workspace') {
