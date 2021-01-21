@@ -9,11 +9,6 @@ pipeline {
                     numToKeepStr: '10'
             )
 
-        triggers {
-            cron('*/5 * * * 1-5')
-        }
-
-
         disableConcurrentBuilds()
 
         throttleJobProperty(
@@ -24,6 +19,10 @@ pipeline {
             maxConcurrentTotal: 1,
 
       )
+    }
+
+    triggers {
+        cron('*/5 * * * 1-5')
     }
 
     stages {
