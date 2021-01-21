@@ -15,8 +15,6 @@ pipeline {
             categories: ['groupA'],
             throttleEnabled: true,
             throttleOption: 'category',
-            maxConcurrentPerNode: 1,
-            maxConcurrentTotal: 1,
 
       )
     }
