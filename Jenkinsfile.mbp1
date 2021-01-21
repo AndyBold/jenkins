@@ -16,8 +16,7 @@ pipeline {
             throttleEnabled: true,
             throttleOption: 'category',
             limitOneJobWithMatchingParams: true,
-            paramsToUseForLimit: '',
-
+            paramsToUseForLimit: 'JENKINSTHROTTLE',
       )
     }
 
