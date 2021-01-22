@@ -1,6 +1,6 @@
 throttle(['groupB']) {
     node() {
-        sh "sleep 120"
+        sh "sleep 130"
         echo "Done"
     }
 }
