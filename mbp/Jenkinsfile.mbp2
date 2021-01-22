@@ -22,7 +22,7 @@ pipeline {
     }
 
     triggers {
-        cron('*/2 8-20 * * 1-5')
+        cron('*/2 8-19 * * 1-5')
     }
 
     parameters {
@@ -49,7 +49,7 @@ pipeline {
         stage('Waiting...') {
             steps {
                 sh """
-                sleep 60
+                sleep 130
                 """
             }
         }
