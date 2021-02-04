@@ -1,6 +1,6 @@
 apiVersion: v2
 name: jenkins
-version: 0.0.3
+version: 0.0.24
 dependencies:
   - name: jenkins
     version: 3.1.2

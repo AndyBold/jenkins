@@ -51,6 +51,59 @@ jenkins:
     serviceType: LoadBalancer
     JCasC:
       defaultConfig: true
+      configScripts:
+        config-tweaks: |
+          unclassified:
+            throttleJobProperty:
+              categories:
+              - categoryName: "groupA"
+                maxConcurrentPerNode: 1
+                maxConcurrentTotal: 1
+              - categoryName: "groupB"
+                maxConcurrentPerNode: 1
+                maxConcurrentTotal: 1
+        job-setup: |
+          jobs:
+            - script: >
+                def jobNum = 1;
+                def gitCount = 1;
+                def jobTypes = ["mbp": "Multibranch", "scripted": "Scripted"];
+
+                for (scriptType in jobTypes.keySet()) {
+                  while (jobNum <=3) {
+                    def jobName = jobTypes.get(scriptType) + "-" + jobNum.toString();
+                    def scriptName = scriptType + "/Jenkinsfile." + scriptType + jobNum.toString();
+                    def longName = jobTypes.get(scriptType) + " pipeline test " + jobNum.toString();
+                    def gitId = "000" + gitCount.toString() + "0";
+                    gitCount ++;
+
+                    multibranchPipelineJob(jobName) {
+                      displayName(longName)
+                      description('A collection of terrible Jenkinsfiles that should not be used anywhere near a Production service.')
+                      branchSources {
+                        git {
+                          id(gitId)
+                          remote('https://github.com/AndyBold/jenkins.git')
+                        }
+                      }
+                      orphanedItemStrategy {
+                        discardOldItems {
+                          numToKeep(1)
+                        }
+                      }
+                      factory {
+                        workflowBranchProjectFactory {
+                          scriptPath(scriptName)
+                        }
+                      }
+                    }
+
+                    jobNum++;
+                  }
+
+                  // Reset the job number after creating each type.
+                  jobNum = 1;
+                }
 
     resources:
       requests:
@@ -59,7 +112,12 @@ jenkins:
       limits:
         cpu: "2000m"
         memory: "8192Mi"
-    javaOpts: "-Xms512m -Xmx8192m"
+    javaOpts: >
+      -Xms512m -Xmx8192m
+      -Dcom.sun.management.jmxremote.port=4000
+      -Dcom.sun.management.jmxremote.authenticate=false
+      -Dcom.sun.management.jmxremote.ssl=false
+    jmxPort: 4000
 
   agent:
     enabled: true
@@ -68,6 +126,12 @@ jenkins:
         memory: "1024Mi"
       limits:
         memory: "1024Mi"
+    # Mount the docker socket from the host node
+    #volumes:
+    #- type: hostPath
+    #mountPath: /var/run/docker.sock
+    #hostPath: /var/run/docker.sock
+
   persistence:
     enabled: true
     size: 20Gi
