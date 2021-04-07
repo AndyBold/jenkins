@@ -1,21 +1,48 @@
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: proxyheaders
+  namespace: development
+spec:
+  headers:
+    sslProxyHeaders:
+      X-Forwarded-Proto: "https"
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins-internal
+  namespace: development
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`jenkins.local`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: jenkins
+          namespace: development
+          port: 8080
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: jenkins
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
-    ingress.kubernetes.io/force-ssl-redirect: "true"
-    kubernetes.io/ingress.class: contour
-    kubernetes.io/tls-acme: "true"
+  namespace: development
 spec:
-  tls:
-  - secretName: httpbin
-    hosts:
-    - jenkins.cornerstones.space
-  rules:
-  - host: jenkins.cornerstones.space
-    http:
-      paths:
-      - backend:
-          serviceName: jenkins
-          servicePort: 8080
+  entryPoints:
+    - websecure
+  middlewares:
+    - proxyheaders
+  routes:
+    - match: Host(`jenkins.cornerstones.space`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: jenkins
+          namespace: development
+          port: 8080
