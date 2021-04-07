@@ -3,7 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: proxyheaders
-  namespace: development
+  namespace: jenkins
 spec:
   headers:
     sslProxyHeaders:
@@ -14,7 +14,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins-internal
-  namespace: development
+  namespace: jenkins
 spec:
   entryPoints:
     - web
@@ -24,7 +24,7 @@ spec:
       services:
         - kind: Service
           name: jenkins
-          namespace: development
+          namespace: jenkins
           port: 8080
 
 ---
@@ -32,7 +32,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins
-  namespace: development
+  namespace: jenkins
 spec:
   entryPoints:
     - websecure
@@ -44,5 +44,5 @@ spec:
       services:
         - kind: Service
           name: jenkins
-          namespace: development
+          namespace: jenkins
           port: 8080
