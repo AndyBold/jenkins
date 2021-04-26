@@ -15,6 +15,7 @@ jenkins:
       - dashboard-view
       - datadog
       - dependency-check-jenkins-plugin
+      - docker-workflow
       - ec2-fleet
       - email-ext
       - envinject
