@@ -19,7 +19,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`jenkins.local`)
+    - match: Host(`jenkins.local`) || Host(`jenkins.cornerstones.local`)
       kind: Rule
       services:
         - kind: Service
@@ -39,7 +39,7 @@ spec:
   middlewares:
     - proxyheaders
   routes:
-    - match: Host(`jenkins.cornerstones.space`)
+    - match: Host(`jenkins.cornerstones.space`) || Host(`jenkins.cornerstones.local`)
       kind: Rule
       services:
         - kind: Service
