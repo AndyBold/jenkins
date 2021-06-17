@@ -75,9 +75,7 @@ pipeline {
         stage('OpenTelemetry') {
             steps {
                 sh """
-                echo "SPAN_ID: ${SPAN_ID}"
-                echo "TRACE_ID: ${TRACE_ID}"
-                echo "Jaeger: ${OTEL_JAEGER_URL}"
+                  env
                 """
             }
         }
